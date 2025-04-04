@@ -1,0 +1,14 @@
+# Node.js (Frontend)
+node_modules/
+.pnpm-store/
+dist/
+.vite/
+
+# Java (Backend)
+liturgia-backend/target/
+*.log
+*.class
+
+# Entornos virtuales y configuración
+.env
+.DS_Store
