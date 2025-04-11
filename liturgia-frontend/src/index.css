@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilo global del proyecto con fondo tipo plantas naturales */
+body {
+  @apply text-white font-sans antialiased;
+
+  /* Fondo base: verde profundo */
+  background: radial-gradient(
+      circle at top left,
+      #355245 0%,
+      #101916 40%,
+      #101916 100%
+    ),
+    radial-gradient(circle at bottom right, #64b37422 10%, transparent 60%);
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Opcional: para que los headers y botones combinen */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-[#E3E5D8];
+}
+
+button {
+  @apply transition duration-200 ease-in-out;
+}
+

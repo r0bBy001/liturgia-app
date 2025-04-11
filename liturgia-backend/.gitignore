@@ -1,0 +1,67 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Ignorar carpetas generadas automáticamente
+/target/
+/build/
+/out/
+
+# Ignorar dependencias externas
+/node_modules/
+/.m2/
+
+# Ignorar configuraciones específicas del IDE
+/.idea/
+/.vscode/
+
+# Ignorar archivos de logs
+*.log
+/logs/
+
+# Ignorar imágenes subidas
+/uploads/
+
+# Ignorar archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos sensibles (usa un archivo de ejemplo en su lugar)
+application.properties
+application.yml
+
+# Ignorar archivos sensibles
+src/main/resources/application.properties
+
+liturgia-backend-clean/
+
