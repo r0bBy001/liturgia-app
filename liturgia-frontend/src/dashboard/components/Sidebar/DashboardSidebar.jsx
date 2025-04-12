@@ -19,7 +19,11 @@ const DashboardSidebar = () => {
               Gestión de Iglesias
             </Link>
           </li>
-          {/* Agrega más enlaces aquí si es necesario */}
+          <li>
+            <Link to="/dashboard/usuarios" className="hover:text-blue-300">
+              Gestión de Usuarios
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>

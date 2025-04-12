@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { getAllChurches, deleteChurch } from "../services/churchService";
 import { Link } from "react-router-dom";
+import CreateChurchForm from "./CreateChurchForm";
+import EditChurchForm from "./EditChurchForm";
 
 const IMAGE_BASE_URL = "http://localhost:8080/uploads";
 
 const ListChurches = () => {
   const [iglesias, setIglesias] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedChurch, setSelectedChurch] = useState(null);
 
   useEffect(() => {
     const fetchIglesias = async () => {
@@ -36,6 +41,29 @@ const ListChurches = () => {
     }
   };
 
+  const openEditModal = (iglesia) => {
+    setSelectedChurch(iglesia);
+    setIsEditModalOpen(true);
+  };
+
+  const closeModals = () => {
+    setIsCreateModalOpen(false);
+    setIsEditModalOpen(false);
+    setSelectedChurch(null);
+  };
+
+  const refreshChurches = async () => {
+    setLoading(true);
+    try {
+      const data = await getAllChurches();
+      setIglesias(data);
+    } catch (error) {
+      console.error("Error al actualizar las iglesias:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) {
     return <div className="text-center mt-10 text-gray-500">Cargando iglesias...</div>;
   }
@@ -44,12 +72,46 @@ const ListChurches = () => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Gestión de Iglesias</h1>
-        <Link to="/dashboard/iglesias/crear">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-            + Crear Iglesia
-          </button>
-        </Link>
+        <button
+          onClick={() => setIsCreateModalOpen(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          + Crear Iglesia
+        </button>
       </div>
+
+      {/* Modal para crear iglesia */}
+      {isCreateModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Crear Iglesia</h2>
+            <CreateChurchForm
+              onClose={closeModals}
+              onSuccess={() => {
+                closeModals();
+                refreshChurches();
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Modal para editar iglesia */}
+      {isEditModalOpen && selectedChurch && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Editar Iglesia</h2>
+            <EditChurchForm
+              church={selectedChurch}
+              onClose={closeModals}
+              onSuccess={() => {
+                closeModals();
+                refreshChurches();
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {iglesias.length === 0 ? (
         <div className="text-center text-gray-500">No hay iglesias registradas.</div>
@@ -75,11 +137,12 @@ const ListChurches = () => {
               <p className="text-sm text-gray-600">{iglesia.direccion}</p>
               <p className="text-sm text-gray-600">{iglesia.ciudad}</p>
               <div className="flex justify-between items-center mt-4">
-                <Link to={`/dashboard/iglesias/editar/${iglesia.id}`}>
-                  <button className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition">
-                    Editar
-                  </button>
-                </Link>
+                <button
+                  onClick={() => openEditModal(iglesia)}
+                  className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition"
+                >
+                  Editar
+                </button>
                 <button
                   onClick={() => handleDelete(iglesia.id)}
                   className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"

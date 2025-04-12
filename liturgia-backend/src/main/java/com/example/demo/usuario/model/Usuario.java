@@ -1,4 +1,4 @@
-package com.example.demo.Usuario.model;
+package com.example.demo.usuario.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCrypt;
