@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/iglesias")
-@CrossOrigin(origins = "*")
 public class IglesiaController {
 
     private final IglesiaService iglesiaService;
