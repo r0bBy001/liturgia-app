@@ -19,6 +19,20 @@ const apiRoutes = {
   images: {
     base: IMAGE_BASE_URL,
   },
+  parents: {
+    getAll: `${API_BASE_URL}/padres`,
+    getById: (id) => `${API_BASE_URL}/padres/${id}`,
+    create: `${API_BASE_URL}/padres`,
+    update: (id) => `${API_BASE_URL}/padres/${id}`,
+    delete: (id) => `${API_BASE_URL}/padres/${id}`,
+  },
+  liturgicalActs: {
+    getAll: `${API_BASE_URL}/tipos-actos`,
+    getById: (id) => `${API_BASE_URL}/tipos-actos/${id}`,
+    create: `${API_BASE_URL}/tipos-actos`,
+    update: (id) => `${API_BASE_URL}/tipos-actos/${id}`,
+    delete: (id) => `${API_BASE_URL}/tipos-actos/${id}`,
+  },
 };
 
 export default apiRoutes;
