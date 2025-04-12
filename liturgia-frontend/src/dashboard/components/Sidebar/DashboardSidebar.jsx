@@ -24,6 +24,16 @@ const DashboardSidebar = () => {
               Gestión de Usuarios
             </Link>
           </li>
+          <li>
+            <Link to="/dashboard/padres" className="hover:text-blue-300">
+              Gestión de Padres
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashboard/tipos-actos-liturgicos" className="hover:text-blue-300">
+              Tipos de Actos Litúrgicos
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>

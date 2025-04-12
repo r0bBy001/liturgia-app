@@ -4,9 +4,11 @@ import Home from "./pages/Home.jsx";
 import IglesiaDetalle from "./pages/IglesiaDetalle.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import DashboardLayout from "./dashboard/layouts/DashboardLayout/DashboardLayout";
-import Inicio from "./dashboard/inicio//pages/Inicio";
+import Inicio from "./dashboard/inicio/pages/Inicio";
 import Usuarios from "./dashboard/usuarios/pages/Usuarios";
 import ListChurches from "./dashboard/iglesias/pages/ListChurches";
+import Padres from "./dashboard/padres/pages/Padres";
+import LiturgicalActs from "./dashboard/tipoActos/pages/LiturgicalActs";
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="inicio" element={<Inicio />} />
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="iglesias" element={<ListChurches />} />
+        <Route path="padres" element={<Padres />} />
+        <Route path="tipos-actos-liturgicos" element={<LiturgicalActs />} />
       </Route>
     </Routes>
   );
