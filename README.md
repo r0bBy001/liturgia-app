@@ -44,7 +44,7 @@ spring.datasource.password=admin123
 spring.jpa.hibernate.ddl-auto=update
 spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=10MB
-
+```
 📄 Documentación Swagger
 Disponible en:
 http://localhost:8080/swagger-ui/index.html
