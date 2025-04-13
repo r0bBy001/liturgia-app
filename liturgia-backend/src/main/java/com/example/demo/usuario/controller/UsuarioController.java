@@ -27,6 +27,9 @@ public class UsuarioController {
 
     @PostMapping
     public UsuarioDTO create(@RequestBody UsuarioDTO usuarioDTO) {
+        if (usuarioDTO.getPassword() == null || usuarioDTO.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("La contraseña no puede ser nula o vacía");
+        }
         return service.create(usuarioDTO);
     }
 
