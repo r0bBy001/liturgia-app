@@ -15,12 +15,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configure(http)) // Habilitar CORS en Spring Security
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/setup/**").permitAll()
+                .requestMatchers("/api/iglesias/**").permitAll() 
+                .requestMatchers("/api/actos-liturgicos/**").permitAll()
+                .requestMatchers("/api/galerias/**").permitAll()
+                .requestMatchers("/api/eventos/**").permitAll()
+                .requestMatchers("/api/noticias/**").permitAll()
+                .requestMatchers("/api/banners/**").permitAll()
+                .requestMatchers("/api/contactos/**").permitAll()
+
+                .requestMatchers("/api/usuarios/**").hasRole("SUPERADMIN")
+                .requestMatchers("/api/padres/**").hasRole("SUPERADMIN")
+                .requestMatchers("/api/iglesias/admin/**").hasRole("SUPERADMIN")
+
                 .requestMatchers(
                     "/api/auth/**", 
                     "/swagger-ui/**", 
                     "/v3/api-docs/**"
                 ).permitAll()
+
                 .anyRequest().authenticated()
             );
         return http.build();
