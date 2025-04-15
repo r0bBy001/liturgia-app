@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const DashboardSidebar = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/admin";
+  };
+
   return (
     <div className="w-64 bg-blue-900 text-white h-full flex flex-col">
       <div className="p-4 text-2xl font-bold border-b border-blue-700">
@@ -33,6 +38,14 @@ const DashboardSidebar = () => {
             <Link to="/dashboard/tipos-actos-liturgicos" className="hover:text-blue-300">
               Tipos de Actos Litúrgicos
             </Link>
+          </li>
+          <li>
+            <button
+              onClick={handleLogout}
+              className="w-full text-left hover:text-blue-300"
+            >
+              Cerrar Sesión
+            </button>
           </li>
         </ul>
       </nav>

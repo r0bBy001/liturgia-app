@@ -9,6 +9,7 @@ import Usuarios from "./dashboard/usuarios/pages/Usuarios";
 import ListChurches from "./dashboard/iglesias/pages/ListChurches";
 import Padres from "./dashboard/padres/pages/Padres";
 import LiturgicalActs from "./dashboard/tipoActos/pages/LiturgicalActs";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
@@ -19,7 +20,14 @@ const App = () => {
       <Route path="/admin" element={<AdminLogin />} />
 
       {/* Rutas del Dashboard */}
-      <Route path="/dashboard" element={<DashboardLayout />}>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="inicio" element={<Inicio />} />
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="iglesias" element={<ListChurches />} />

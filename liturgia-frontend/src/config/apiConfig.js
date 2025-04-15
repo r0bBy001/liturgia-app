@@ -2,6 +2,9 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 const apiRoutes = {
+  auth: {
+    login: `${API_BASE_URL}/auth/login`, // Endpoint para login
+  },
   churches: {
     getAll: `${API_BASE_URL}/iglesias`,
     getById: (id) => `${API_BASE_URL}/iglesias/${id}`,
