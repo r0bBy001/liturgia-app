@@ -19,7 +19,7 @@ public class JwtUtil {
                 .setSubject(username)
                 .claim("role", role) // Agregar el rol al token
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 horas
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60  * 15)) // 10 horas
                 .signWith(SECRET_KEY) // Usar la clave secreta
                 .compact();
     }

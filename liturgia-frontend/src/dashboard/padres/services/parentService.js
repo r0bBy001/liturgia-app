@@ -1,48 +1,40 @@
-import apiRoutes from "../../../config/apiConfig";
+import { httpClient } from "../../../config/httpClient";
 
 export const getAllParents = async () => {
-  const response = await fetch(apiRoutes.parents.getAll);
-  if (!response.ok) {
-    throw new Error("Error al obtener los padres");
-  }
-  return response.json();
+  return await httpClient("/padres", {
+    method: "GET",
+  });
 };
 
 export const getParentById = async (id) => {
-  const response = await fetch(apiRoutes.parents.getById(id));
-  if (!response.ok) {
-    throw new Error("Error al obtener el padre");
-  }
-  return response.json();
+  return await httpClient(`/padres/${id}`, {
+    method: "GET",
+  });
 };
 
 export const createParent = async (formData) => {
-  const response = await fetch(apiRoutes.parents.create, {
+  // Enviar FormData directamente
+  return await httpClient("/padres", {
     method: "POST",
-    body: formData, // FormData maneja automáticamente el encabezado Content-Type
+    body: formData, // FormData se envía directamente
   });
-  if (!response.ok) {
-    throw new Error("Error al crear el padre");
-  }
-  return response.json();
 };
 
 export const updateParent = async (id, formData) => {
-  const response = await fetch(apiRoutes.parents.update(id), {
+  return await httpClient(`/padres/${id}`, {
     method: "PUT",
-    body: formData, // FormData maneja automáticamente el encabezado Content-Type
+    body: formData, // FormData se envía directamente
   });
-  if (!response.ok) {
-    throw new Error("Error al actualizar el padre");
-  }
-  return response.json();
 };
 
 export const deleteParent = async (id) => {
-  const response = await fetch(apiRoutes.parents.delete(id), {
+  const response = await httpClient(`/padres/${id}`, {
     method: "DELETE",
   });
+
   if (!response.ok) {
     throw new Error("Error al eliminar el padre");
   }
+
+  return response;
 };

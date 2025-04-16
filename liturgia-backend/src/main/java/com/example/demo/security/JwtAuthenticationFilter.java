@@ -32,7 +32,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
-        // Excluir los endpoints que no requieren autenticación
         String requestPath = request.getServletPath();
         if (requestPath.startsWith("/api/auth")) {
             filterChain.doFilter(request, response);
@@ -51,8 +50,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             var userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
-                String role = jwtUtil.extractRole(jwt); // Extraer el rol del token
-                var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role)); // Crear autoridad
+                String role = jwtUtil.extractRole(jwt);
+                var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
                 var authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, authorities

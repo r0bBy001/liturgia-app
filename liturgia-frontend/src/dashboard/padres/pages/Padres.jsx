@@ -34,7 +34,7 @@ const Padres = () => {
         alert("Padre eliminado con éxito");
       } catch (error) {
         console.error("Error al eliminar el padre:", error);
-        alert("Error al eliminar el padre");
+        alert("Ocurrió un error al intentar eliminar el padre.");
       }
     }
   };

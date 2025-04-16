@@ -36,7 +36,7 @@ const ListChurches = () => {
         alert("Iglesia eliminada con éxito");
       } catch (error) {
         console.error("Error al eliminar la iglesia:", error);
-        alert("Error al eliminar la iglesia");
+        alert("Ocurrió un error al intentar eliminar la iglesia.");
       }
     }
   };
