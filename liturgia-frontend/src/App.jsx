@@ -9,21 +9,19 @@ import Usuarios from "./dashboard/usuarios/pages/Usuarios";
 import ListChurches from "./dashboard/iglesias/pages/ListChurches";
 import Padres from "./dashboard/padres/pages/Padres";
 import LiturgicalActs from "./dashboard/tipoActos/pages/LiturgicalActs";
+import InformacionInstitucional from "./dashboard/informacionInstitucional/pages/InformacionInstitucional";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <Routes>
-      {/* Rutas principales */}
       <Route path="/" element={<Home />} />
       <Route path="/iglesias/:id" element={<IglesiaDetalle />} />
       <Route path="/admin" element={<AdminLogin />} />
-
-      {/* Rutas del Dashboard */}
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["SUPERADMIN", "ENCARGADO"]}>
             <DashboardLayout />
           </ProtectedRoute>
         }
@@ -33,7 +31,9 @@ const App = () => {
         <Route path="iglesias" element={<ListChurches />} />
         <Route path="padres" element={<Padres />} />
         <Route path="tipos-actos-liturgicos" element={<LiturgicalActs />} />
+        <Route path="informacion-institucional" element={<InformacionInstitucional />} />
       </Route>
+      <Route path="/unauthorized" element={<div>Acceso Denegado</div>} />
     </Routes>
   );
 };

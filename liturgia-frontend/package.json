@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "date-fns": "^4.1.0",
+    "jwt-decode": "^4.0.0",
     "react": "^19.0.0",
     "react-date-range": "^2.0.1",
     "react-dom": "^19.0.0",

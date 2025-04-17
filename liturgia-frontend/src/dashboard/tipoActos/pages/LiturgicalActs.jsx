@@ -36,7 +36,7 @@ const LiturgicalActs = () => {
         alert("Tipo de acto litúrgico eliminado con éxito");
       } catch (error) {
         console.error("Error al eliminar el tipo de acto litúrgico:", error);
-        alert("Error al eliminar el tipo de acto litúrgico");
+        alert("Ocurrió un error al intentar eliminar el tipo de acto litúrgico.");
       }
     }
   };
