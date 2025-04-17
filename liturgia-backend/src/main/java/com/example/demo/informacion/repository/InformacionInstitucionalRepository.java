@@ -4,12 +4,10 @@ import com.example.demo.informacion.model.InformacionInstitucional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface InformacionInstitucionalRepository extends JpaRepository<InformacionInstitucional, Long> {
-    List<InformacionInstitucional> findByIglesiaId(Long iglesiaId);
-    
-    // Podemos agregar un método para obtener la información más reciente
-    InformacionInstitucional findTopByIglesiaIdOrderByIdDesc(Long iglesiaId);
+    // Modificar para devolver Optional<InformacionInstitucional> en vez de List
+    Optional<InformacionInstitucional> findByIglesiaId(Long iglesiaId);
 }

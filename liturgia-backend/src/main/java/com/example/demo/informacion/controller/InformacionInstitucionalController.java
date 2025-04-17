@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/informacion-institucional")
@@ -40,30 +42,32 @@ public class InformacionInstitucionalController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarInformacion(@RequestBody InformacionInstitucionalDTO informacionDTO) {
-        // Verificar si el usuario es un encargado y tiene acceso a esta iglesia
-        Long iglesiaIdDelToken = JwtContext.getCurrentIglesiaId();
-        
-        if (JwtContext.hasRole("ENCARGADO") && 
-                (iglesiaIdDelToken == null || !iglesiaIdDelToken.equals(informacionDTO.getIglesiaId()))) {
+    public ResponseEntity<?> crearOActualizarInformacion(@RequestBody InformacionInstitucionalDTO informacionDTO) {
+        // Verificar si el usuario es un encargado
+        if (!JwtContext.hasRole("ENCARGADO")) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("No tienes permiso para crear información para esta iglesia");
+                .body("Solo los encargados pueden gestionar la información institucional");
         }
         
-        Optional<Iglesia> iglesiaOpt = iglesiaRepository.findById(informacionDTO.getIglesiaId());
+        Long iglesiaId = JwtContext.getCurrentIglesiaId();
+        if (iglesiaId == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body("No tienes una iglesia asignada");
+        }
+        
+        Optional<Iglesia> iglesiaOpt = iglesiaRepository.findById(iglesiaId);
         if (!iglesiaOpt.isPresent()) {
             return ResponseEntity.badRequest().body("La iglesia especificada no existe");
         }
         
-        InformacionInstitucional informacion = new InformacionInstitucional();
-        informacion.setDescripcion(informacionDTO.getDescripcion());
-        informacion.setHistoria(informacionDTO.getHistoria());
-        informacion.setMision(informacionDTO.getMision());
-        informacion.setVision(informacionDTO.getVision());
+        // Convertir DTO a entidad
+        InformacionInstitucional informacion = convertirAEntidad(informacionDTO);
         informacion.setIglesia(iglesiaOpt.get());
         
-        InformacionInstitucional nuevaInformacion = informacionInstitucionalService.guardarInformacion(informacion);
-        return ResponseEntity.ok(convertirADTO(nuevaInformacion));
+        // Guardar o actualizar
+        InformacionInstitucional resultado = informacionInstitucionalService.guardarOActualizarInformacion(informacion);
+        
+        return ResponseEntity.ok(convertirADTO(resultado));
     }
 
     @PutMapping("/{id}")
@@ -97,11 +101,26 @@ public class InformacionInstitucionalController {
     }
 
     @GetMapping("/iglesia/{iglesiaId}")
-    public ResponseEntity<InformacionInstitucionalDTO> obtenerInformacionPorIglesia(@PathVariable Long iglesiaId) {
+    public ResponseEntity<?> obtenerInformacionPorIglesia(@PathVariable Long iglesiaId) {
         InformacionInstitucional informacion = informacionInstitucionalService.obtenerInformacionPorIglesia(iglesiaId);
+        
         if (informacion == null) {
-            return ResponseEntity.notFound().build();
+            // Verificar si la iglesia existe
+            boolean iglesiaExiste = iglesiaRepository.existsById(iglesiaId);
+            
+            if (!iglesiaExiste) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No se encontró ninguna iglesia con el ID proporcionado.");
+            }
+            
+            // La iglesia existe, pero no tiene información configurada aún
+            Map<String, Object> respuesta = new HashMap<>();
+            respuesta.put("mensaje", "Esta iglesia aún no tiene información institucional configurada.");
+            respuesta.put("iglesiaId", iglesiaId);
+            
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
         }
+        
         return ResponseEntity.ok(convertirADTO(informacion));
     }
 
@@ -145,5 +164,15 @@ public class InformacionInstitucionalController {
         dto.setVision(informacion.getVision());
         dto.setIglesiaId(informacion.getIglesia().getId());
         return dto;
+    }
+
+    // Método auxiliar para convertir DTOs a entidades
+    private InformacionInstitucional convertirAEntidad(InformacionInstitucionalDTO dto) {
+        InformacionInstitucional informacion = new InformacionInstitucional();
+        informacion.setDescripcion(dto.getDescripcion());
+        informacion.setHistoria(dto.getHistoria());
+        informacion.setMision(dto.getMision());
+        informacion.setVision(dto.getVision());
+        return informacion;
     }
 }
