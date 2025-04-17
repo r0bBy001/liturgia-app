@@ -22,8 +22,8 @@ public class InformacionInstitucional {
     @Column(columnDefinition = "TEXT")
     private String vision;
 
-    @ManyToOne
-    @JoinColumn(name = "iglesia_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "iglesia_id", nullable = false, unique = true)
     private Iglesia iglesia;
 
     // Getters y Setters
