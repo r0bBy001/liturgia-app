@@ -1,20 +1,20 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
-const isTokenValid = () => {
-  const token = localStorage.getItem("token");
-  if (!token) return false;
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const { user } = useUser();
 
-  const payload = JSON.parse(atob(token.split(".")[1])); // Decodifica el payload del JWT
-  const currentTime = Math.floor(Date.now() / 1000);
+  if (user === null) {
+    return <div>Cargando...</div>;
+  }
 
-  return payload.exp > currentTime; // Verifica si el token ha expirado
-};
-
-const ProtectedRoute = ({ children }) => {
-  if (!isTokenValid()) {
-    localStorage.removeItem("token"); // Limpia el token si es inválido
+  if (!user) {
     return <Navigate to="/admin" />;
+  }
+
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" />;
   }
 
   return children;

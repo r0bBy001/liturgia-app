@@ -10,16 +10,16 @@ public class InformacionInstitucional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String historia;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String mision;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String vision;
 
     @ManyToOne

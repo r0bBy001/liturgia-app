@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version> <!-- Alineamos todas las dependencias con esta versión -->
+        <version>3.4.4</version> <!-- Actualizado a la versión más reciente recomendada -->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     

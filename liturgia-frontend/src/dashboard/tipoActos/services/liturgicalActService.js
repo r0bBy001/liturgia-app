@@ -1,54 +1,45 @@
-import apiRoutes from "../../../config/apiConfig";
+import { httpClient } from "../../../config/httpClient";
 
 export const getAllLiturgicalActs = async () => {
-  const response = await fetch(apiRoutes.liturgicalActs.getAll);
-  if (!response.ok) {
-    throw new Error("Error al obtener los tipos de actos litúrgicos");
-  }
-  return response.json();
+  return await httpClient("/tipos-actos", {
+    method: "GET",
+  });
 };
 
 export const getLiturgicalActById = async (id) => {
-  const response = await fetch(apiRoutes.liturgicalActs.getById(id));
-  if (!response.ok) {
-    throw new Error("Error al obtener el tipo de acto litúrgico");
-  }
-  return response.json();
+  return await httpClient(`/tipos-actos/${id}`, {
+    method: "GET",
+  });
 };
 
-export const createLiturgicalAct = async (formData) => {
-  const response = await fetch(apiRoutes.liturgicalActs.create, {
+export const createLiturgicalAct = async (data) => {
+  return await httpClient("/tipos-actos", {
     method: "POST",
+    body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
   });
-  if (!response.ok) {
-    throw new Error("Error al crear el tipo de acto litúrgico");
-  }
-  return response.json();
 };
 
-export const updateLiturgicalAct = async (id, formData) => {
-  const response = await fetch(apiRoutes.liturgicalActs.update(id), {
+export const updateLiturgicalAct = async (id, data) => {
+  return await httpClient(`/tipos-actos/${id}`, {
     method: "PUT",
+    body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
   });
-  if (!response.ok) {
-    throw new Error("Error al actualizar el tipo de acto litúrgico");
-  }
-  return response.json();
 };
 
 export const deleteLiturgicalAct = async (id) => {
-  const response = await fetch(apiRoutes.liturgicalActs.delete(id), {
+  const response = await httpClient(`/tipos-actos/${id}`, {
     method: "DELETE",
   });
-  if (!response.ok) {
+
+  if (response === null || !response.ok) {
     throw new Error("Error al eliminar el tipo de acto litúrgico");
   }
+
+  return response;
 };

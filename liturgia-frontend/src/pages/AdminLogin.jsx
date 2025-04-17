@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { login } from "../dashboard/usuarios/services/authService";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { loadUserFromToken } = useUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,9 +18,10 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       const data = await login(formData);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token); // Guarda el token en localStorage
+      loadUserFromToken(); // Actualiza el contexto inmediatamente
       alert("Inicio de sesión exitoso");
-      window.location.href = "/dashboard";
+      navigate("/dashboard"); // Redirige al dashboard
     } catch (err) {
       console.error(err);
       setError("Credenciales inválidas");
