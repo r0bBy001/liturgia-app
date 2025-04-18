@@ -1,0 +1,363 @@
+/* Estilos personalizados para el calendario */
+
+/* Contenedor del calendario */
+.calendar-container {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Cabecera del calendario */
+.fc .fc-toolbar {
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.25rem !important;
+  font-weight: 600;
+  color: #1f2937 !important;
+}
+
+/* Botones de la cabecera */
+.fc .fc-button-primary {
+  background-color: #4f46e5 !important;
+  border-color: #4338ca !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: #4338ca !important;
+  border-color: #3730a3 !important;
+}
+
+.fc .fc-button-primary:disabled {
+  background-color: #6366f1 !important;
+  border-color: #4f46e5 !important;
+  opacity: 0.7;
+}
+
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: #3730a3 !important;
+  border-color: #312e81 !important;
+}
+
+/* Vista días */
+.fc .fc-daygrid-day-top {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.fc .fc-daygrid-day-number {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+}
+
+/* Celdas */
+.fc .fc-daygrid-day {
+  transition: background-color 0.2s;
+}
+
+.fc .fc-daygrid-day:hover {
+  background-color: #f3f4f6;
+}
+
+/* Día de hoy */
+.fc .fc-day-today {
+  background-color: rgba(79, 70, 229, 0.08) !important;
+}
+
+/* Eventos */
+.fc .fc-event {
+  border-radius: 4px;
+  padding: 2px;
+  margin: 1px 0;
+  border: none !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.fc .fc-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.fc .fc-event-title,
+.fc .fc-event-time {
+  color: white !important; /* Asegurarse que el texto de los eventos sea visible */
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); /* Añadir sombra para mejorar legibilidad */
+}
+
+/* Encabezados de las columnas */
+.fc .fc-col-header-cell {
+  background-color: #f9fafb;
+  padding: 0.75rem 0;
+  font-weight: 600;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: #4b5563;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* Vista de lista */
+.fc .fc-list {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.fc .fc-list-day-cushion {
+  background-color: #f9fafb !important;
+  padding: 0.75rem 1.25rem !important;
+}
+
+.fc .fc-list-event:hover td {
+  background-color: #f3f4f6 !important;
+}
+
+.fc .fc-list-event-title,
+.fc .fc-list-event-title a {
+  font-weight: 500;
+  color: #111827 !important; /* Color oscuro para el título en la vista de lista */
+  text-shadow: none !important; /* Eliminar cualquier sombra en la vista de lista */
+}
+
+.fc .fc-list-event-time {
+  color: #4b5563 !important; /* Color para la hora en la vista de lista */
+  text-shadow: none !important; /* Eliminar sombra */
+}
+
+.fc .fc-list-event-dot {
+  border-color: #4f46e5 !important; /* Color del punto marcador en la vista de lista */
+}
+
+.fc .fc-list-table td, 
+.fc .fc-list-table th {
+  color: #111827 !important; /* Asegurar que todo el texto en la tabla de lista sea visible */
+}
+
+/* Específicamente asegurar que no hay sombra ni texto blanco en la vista de lista */
+.fc-list-event .fc-event-title,
+.fc-list-event .fc-event-time {
+  color: #111827 !important; /* Texto oscuro */
+  text-shadow: none !important; /* Sin sombra */
+}
+
+/* Contrastes específicos para la vista de lista */
+.fc-list-event-dot {
+  border-color: currentColor !important;
+}
+
+/* Indicador de hora actual */
+.fc .fc-timegrid-now-indicator-line {
+  border-color: #ef4444;
+}
+
+.fc .fc-timegrid-now-indicator-arrow {
+  border-color: #ef4444;
+  background-color: #ef4444;
+}
+
+/* Vista de mes */
+.fc .fc-daygrid-event-dot {
+  border-color: currentColor !important;
+}
+
+.fc .fc-daygrid-event-harness {
+  margin-bottom: 1px;
+}
+
+.fc .fc-daygrid-event {
+  padding: 2px 4px !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important; /* Borde para mejorar contraste */
+  background-color: rgba(79, 70, 229, 0.8) !important; /* Color de fondo por defecto si no se especifica otro */
+}
+
+/* Estilizar el texto dentro de los eventos en vista mes para mejorar visibilidad */
+.fc .fc-daygrid-event .fc-event-title {
+  font-weight: 500;
+  padding: 1px 0;
+  color: white !important;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4) !important; /* Sombra más visible */
+}
+
+.fc .fc-daygrid-event .fc-event-time {
+  font-weight: 500;
+  color: white !important;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4) !important; /* Sombra más visible */
+}
+
+/* Estilo para el marcador "más" eventos */
+.fc-daygrid-more-link {
+  color: #4f46e5 !important; /* Color azul/morado para el enlace "más" */
+  font-weight: 500;
+  background-color: rgba(79, 70, 229, 0.1);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Eventos con más de un punto (los puntos pequeños) */
+.fc-daygrid-dot-event {
+  background-color: rgba(79, 70, 229, 0.1) !important;
+  padding: 2px !important;
+  border-radius: 4px !important;
+}
+
+.fc-daygrid-dot-event .fc-event-title {
+  color: #111827 !important; /* Texto oscuro para eventos tipo punto */
+  text-shadow: none !important;
+  font-weight: 500 !important;
+}
+
+.fc-daygrid-dot-event:hover {
+  background-color: rgba(79, 70, 229, 0.2) !important;
+}
+
+/* Eventos condensados en la vista de mes (los que solo muestran un punto) */
+.fc-daygrid-event.fc-event-start.fc-event-end.fc-event-past,
+.fc-daygrid-event.fc-event-start.fc-event-end.fc-event-today,
+.fc-daygrid-event.fc-event-start.fc-event-end.fc-event-future {
+  margin: 1px 2px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+/* Vistas de día y semana */
+.fc-timegrid-event {
+  background-color: rgba(79, 70, 229, 0.85) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.fc-timegrid-event .fc-event-main {
+  padding: 2px 4px !important;
+}
+
+.fc-timegrid-event .fc-event-title {
+  font-weight: 500;
+  color: white !important;
+  text-shadow: 0px 1px 2px rgba(0,0,0,0.3) !important;
+}
+
+.fc-timegrid-event .fc-event-time {
+  color: white !important;
+  font-weight: bold;
+  text-shadow: 0px 1px 2px rgba(0,0,0,0.3) !important;
+}
+
+/* Específicamente para eventos en vista día */
+.fc-timeGridDay-view .fc-timegrid-event {
+  background-color: #4f46e5 !important; /* Color sólido para eventos en vista día */
+  border: 1px solid #3730a3 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.fc-timeGridDay-view .fc-timegrid-event .fc-event-title,
+.fc-timeGridDay-view .fc-timegrid-event .fc-event-time {
+  color: white !important;
+  text-shadow: 0px 1px 2px rgba(0,0,0,0.4) !important;
+  font-weight: bold;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .fc .fc-toolbar.fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fc .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .fc .fc-button {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .fc .fc-toolbar-title {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* Animaciones para cambios de vista */
+.fc .fc-view-harness {
+  transition: height 0.3s ease-out;
+}
+
+/* Estilos para DatePicker */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  color: #111827 !important; /* Asegurarse que el texto sea oscuro */
+}
+
+.react-datepicker {
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 0.5rem !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  color: #111827 !important; /* Texto oscuro en el calendario */
+}
+
+.react-datepicker__header {
+  background-color: #f9fafb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  color: #111827 !important;
+}
+
+.react-datepicker__current-month, 
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: #111827 !important;
+}
+
+.react-datepicker__day-name, 
+.react-datepicker__day, 
+.react-datepicker__time-name {
+  color: #4b5563 !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__time-list-item--selected {
+  background-color: #4f46e5 !important;
+  color: white !important;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__time-list-item:hover {
+  background-color: #e0e7ff !important;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+  color: #111827 !important;
+}
+
+/* Estilos específicos para los inputs y selects en formularios */
+select.text-gray-900 option {
+  color: #111827;
+  background-color: white;
+}
+
+/* Fix para el color de texto en los formularios */
+.form-input,
+.form-select,
+.react-datepicker__input-container input {
+  color: #111827 !important;
+  background-color: white !important;
+}

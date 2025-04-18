@@ -10,6 +10,7 @@ import ListChurches from "./dashboard/iglesias/pages/ListChurches";
 import Padres from "./dashboard/padres/pages/Padres";
 import LiturgicalActs from "./dashboard/tipoActos/pages/LiturgicalActs";
 import InformacionInstitucional from "./dashboard/informacionInstitucional/pages/InformacionInstitucional";
+import LiturgicalEventCalendar from "./dashboard/ActosLiturgicos/pages/LiturgicalEventCalendar";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="iglesias" element={<ListChurches />} />
         <Route path="padres" element={<Padres />} />
         <Route path="tipos-actos-liturgicos" element={<LiturgicalActs />} />
+        <Route path="actos-liturgicos" element={<LiturgicalEventCalendar />} />
         <Route path="informacion-institucional" element={<InformacionInstitucional />} />
       </Route>
       <Route path="/unauthorized" element={<div>Acceso Denegado</div>} />
