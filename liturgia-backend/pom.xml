@@ -6,8 +6,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.4</version> <!-- Actualizado a la versión más reciente recomendada -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>3.2.3</version> <!-- Cambiar a una versión estable conocida -->
+        <relativePath/>
     </parent>
     
     <groupId>com.example</groupId>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.2.0</version>
+            <version>2.3.0</version> <!-- Versión más reciente compatible con Spring Boot 3.x -->
         </dependency>
         
         <!-- TwelveMonkeys ImageIO WebP support -->
