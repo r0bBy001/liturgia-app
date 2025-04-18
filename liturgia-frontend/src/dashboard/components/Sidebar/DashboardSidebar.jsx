@@ -64,6 +64,14 @@ const DashboardSidebar = () => {
                   Información Institucional
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/dashboard/actos-liturgicos"
+                  className="hover:text-blue-300"
+                >
+                  Calendario de Actos Litúrgicos
+                </Link>
+              </li>
             </>
           )}
           <li>
