@@ -1,48 +1,34 @@
-import apiRoutes from "../../../config/apiConfig";
+import { httpClient } from "../../../config/httpClient";
 
 export const getAllChurches = async () => {
-  const response = await fetch(apiRoutes.churches.getAll);
-  if (!response.ok) {
-    throw new Error("Error al obtener las iglesias");
-  }
-  return response.json();
+  return await httpClient("/iglesias", {
+    method: "GET",
+  });
 };
 
 export const getChurchById = async (id) => {
-  const response = await fetch(apiRoutes.churches.getById(id));
-  if (!response.ok) {
-    throw new Error("Error al obtener la iglesia");
-  }
-  return response.json();
+  return await httpClient(`/iglesias/${id}`, {
+    method: "GET",
+  });
 };
 
 export const createChurch = async (formData) => {
-  const response = await fetch(apiRoutes.churches.create, {
+  // Enviar FormData directamente
+  return await httpClient("/iglesias", {
     method: "POST",
-    body: formData,
+    body: formData, // FormData se envía directamente
   });
-  if (!response.ok) {
-    throw new Error("Error al crear la iglesia");
-  }
-  return response.json();
 };
 
 export const updateChurch = async (id, formData) => {
-  const response = await fetch(apiRoutes.churches.update(id), {
+  return await httpClient(`/iglesias/${id}`, {
     method: "PUT",
-    body: formData,
+    body: formData, // FormData se envía directamente
   });
-  if (!response.ok) {
-    throw new Error("Error al actualizar la iglesia");
-  }
-  return response.json();
 };
 
 export const deleteChurch = async (id) => {
-  const response = await fetch(apiRoutes.churches.delete(id), {
+  return await httpClient(`/iglesias/${id}`, {
     method: "DELETE",
   });
-  if (!response.ok) {
-    throw new Error("Error al eliminar la iglesia");
-  }
 };

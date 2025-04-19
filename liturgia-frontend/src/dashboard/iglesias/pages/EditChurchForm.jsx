@@ -14,6 +14,10 @@ const EditChurchForm = ({ churchId, onClose, onSuccess }) => {
 
   useEffect(() => {
     const fetchChurch = async () => {
+      if (!churchId) {
+        console.error("El ID de la iglesia es inválido");
+        return;
+      }
       try {
         const data = await getChurchById(churchId);
         setFormData({
@@ -22,8 +26,8 @@ const EditChurchForm = ({ churchId, onClose, onSuccess }) => {
           ciudad: data.ciudad || "",
           telefono: data.telefono || "",
           correo: data.correo || "",
-          imagen: null, // No cargamos la imagen existente
-          portada: null, // No cargamos la portada existente
+          imagen: null,
+          portada: null,
         });
       } catch (error) {
         console.error("Error al cargar la iglesia:", error);
@@ -35,7 +39,7 @@ const EditChurchForm = ({ churchId, onClose, onSuccess }) => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (files) {
+    if (files && files.length > 0) {
       setFormData({ ...formData, [name]: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -44,9 +48,14 @@ const EditChurchForm = ({ churchId, onClose, onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!churchId) {
+      alert("El ID de la iglesia es inválido");
+      return;
+    }
+
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
-      if (formData[key]) {
+      if (formData[key] !== null && formData[key] !== undefined) {
         data.append(key, formData[key]);
       }
     });
@@ -54,8 +63,8 @@ const EditChurchForm = ({ churchId, onClose, onSuccess }) => {
     try {
       await updateChurch(churchId, data);
       alert("Iglesia actualizada con éxito");
-      onSuccess(); // Actualiza la lista de iglesias
-      onClose(); // Cierra el modal
+      onSuccess();
+      onClose();
     } catch (error) {
       console.error("Error al actualizar la iglesia:", error);
       alert("Error al actualizar la iglesia");

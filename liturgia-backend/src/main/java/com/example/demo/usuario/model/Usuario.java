@@ -1,7 +1,6 @@
 package com.example.demo.usuario.model;
 
 import jakarta.persistence.*;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import com.example.demo.Iglesia.model.Iglesia;
 import com.example.demo.model.Rol;
@@ -27,27 +26,22 @@ public class Usuario {
 
     public Usuario(String username, String password, Rol rol, Iglesia iglesia){
         this.username = username;
-        this.setPassword(password);
+        this.password = password; 
         this.rol = rol;
         this.iglesia = iglesia;
         validarRelacionConIglesia();
     }
-    private String hashPassword(String plainPassword){
-        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
-    }
 
-    public void setPassword(String password){
-        this.password=hashPassword(password);
+    public void setPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("La contraseña no puede ser nula o vacía");
+        }
+        this.password = password;
     }
 
     @PrePersist
     @PreUpdate
-    private void validarRelacionConIglesia(){
-        if(this.rol == Rol.ENCARGADO && this.iglesia == null){
-            throw new IllegalArgumentException("Un encargado debe tener una iglesia asignada");
-        }else if(this.rol == Rol.SUPERADMIN && this.iglesia !=null){
-            throw new IllegalArgumentException("Un SUPERADMIN no debe estar asignado a una iglesia");
-        }
+    private void validarRelacionConIglesia() {
     }
 
     public String getPassword(){

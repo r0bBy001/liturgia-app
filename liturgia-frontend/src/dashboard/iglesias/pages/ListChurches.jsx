@@ -36,14 +36,14 @@ const ListChurches = () => {
         alert("Iglesia eliminada con éxito");
       } catch (error) {
         console.error("Error al eliminar la iglesia:", error);
-        alert("Error al eliminar la iglesia");
+        alert("Ocurrió un error al intentar eliminar la iglesia.");
       }
     }
   };
 
   const openEditModal = (iglesia) => {
-    setSelectedChurch(iglesia);
-    setIsEditModalOpen(true);
+    setSelectedChurch(iglesia); // Configura la iglesia seleccionada
+    setIsEditModalOpen(true); // Abre el modal de edición
   };
 
   const closeModals = () => {
@@ -102,7 +102,7 @@ const ListChurches = () => {
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Editar Iglesia</h2>
             <EditChurchForm
-              church={selectedChurch}
+              churchId={selectedChurch?.id} // Pasa solo el ID de la iglesia
               onClose={closeModals}
               onSuccess={() => {
                 closeModals();

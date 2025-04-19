@@ -2,6 +2,9 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 const apiRoutes = {
+  auth: {
+    login: `${API_BASE_URL}/auth/login`, // Endpoint para login
+  },
   churches: {
     getAll: `${API_BASE_URL}/iglesias`,
     getById: (id) => `${API_BASE_URL}/iglesias/${id}`,
@@ -18,6 +21,20 @@ const apiRoutes = {
   },
   images: {
     base: IMAGE_BASE_URL,
+  },
+  parents: {
+    getAll: `${API_BASE_URL}/padres`,
+    getById: (id) => `${API_BASE_URL}/padres/${id}`,
+    create: `${API_BASE_URL}/padres`,
+    update: (id) => `${API_BASE_URL}/padres/${id}`,
+    delete: (id) => `${API_BASE_URL}/padres/${id}`,
+  },
+  liturgicalActs: {
+    getAll: `${API_BASE_URL}/tipos-actos`,
+    getById: (id) => `${API_BASE_URL}/tipos-actos/${id}`,
+    create: `${API_BASE_URL}/tipos-actos`,
+    update: (id) => `${API_BASE_URL}/tipos-actos/${id}`,
+    delete: (id) => `${API_BASE_URL}/tipos-actos/${id}`,
   },
 };
 

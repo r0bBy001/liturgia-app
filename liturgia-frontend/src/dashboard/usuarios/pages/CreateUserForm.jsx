@@ -31,6 +31,17 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validación antes de enviar
+    if (formData.rol === "ENCARGADO" && !formData.iglesiaId) {
+      alert("Un encargado debe tener una iglesia asignada");
+      return;
+    }
+
+    if (formData.rol === "SUPERADMIN") {
+      formData.iglesiaId = null; // explícitamente null para superadmins
+    }
+
     try {
       await createUser(formData);
       alert("Usuario creado con éxito");
@@ -44,6 +55,7 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <h2 className="text-xl font-bold text-gray-800 mb-4">Crear Nuevo Usuario</h2>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">Nombre de usuario</label>
         <input
@@ -55,6 +67,7 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
           required
         />
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">Contraseña</label>
         <input
@@ -66,6 +79,7 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
           required
         />
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">Rol</label>
         <select
@@ -80,6 +94,7 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
           <option value="ENCARGADO">Encargado</option>
         </select>
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">Iglesia</label>
         <select
@@ -87,6 +102,7 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
           value={formData.iglesiaId}
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-3 py-2 text-black bg-white"
+          disabled={formData.rol === "SUPERADMIN"} // desactiva si es superadmin
         >
           <option value="">Sin iglesia</option>
           {iglesias.map((iglesia) => (
@@ -96,6 +112,7 @@ const CreateUserForm = ({ onClose, onSuccess }) => {
           ))}
         </select>
       </div>
+
       <div className="flex justify-end space-x-4">
         <button
           type="button"
