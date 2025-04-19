@@ -38,13 +38,11 @@ public class AuthController {
                     .map(grantedAuthority -> grantedAuthority.getAuthority().replace("ROLE_", ""))
                     .orElse("");
 
-            // Buscar al usuario para obtener información adicional
             Usuario usuario = usuarioRepository.findByUsername(username)
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
             String token;
             
-            // Solo enviar el ID de la iglesia si el usuario es un ENCARGADO
             if (usuario.getRol() == Rol.ENCARGADO && usuario.getIglesia() != null) {
                 Long iglesiaId = usuario.getIglesia().getId();
                 token = jwtUtil.generateToken(username, role, iglesiaId);
@@ -52,7 +50,6 @@ public class AuthController {
                 token = jwtUtil.generateToken(username, role);
             }
 
-            // Solo devolver el token en la respuesta
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException e) {
             AuthResponse errorResponse = new AuthResponse(null);

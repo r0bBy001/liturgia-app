@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface InformacionInstitucionalRepository extends JpaRepository<InformacionInstitucional, Long> {
-    // Modificar para devolver Optional<InformacionInstitucional> en vez de List
     Optional<InformacionInstitucional> findByIglesiaId(Long iglesiaId);
 }

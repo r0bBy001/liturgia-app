@@ -5,13 +5,12 @@ import com.example.demo.model.Rol;
 public class UsuarioDTO {
     private Long id;
     private String username;
-    private String password; // Solo para solicitudes
+    private String password;
     private Rol rol;
     private Long iglesiaId;
 
     public UsuarioDTO() {}
 
-    // Constructor para respuestas (sin password)
     public UsuarioDTO(Long id, String username, Rol rol, Long iglesiaId) {
         this.id = id;
         this.username = username;
@@ -19,7 +18,6 @@ public class UsuarioDTO {
         this.iglesiaId = iglesiaId;
     }
 
-    // Constructor para solicitudes (con password)
     public UsuarioDTO(Long id, String username, String password, Rol rol, Long iglesiaId) {
         this.id = id;
         this.username = username;

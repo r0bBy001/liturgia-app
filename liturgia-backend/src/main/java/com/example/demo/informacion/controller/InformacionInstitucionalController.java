@@ -43,7 +43,6 @@ public class InformacionInstitucionalController {
 
     @PostMapping
     public ResponseEntity<?> crearOActualizarInformacion(@RequestBody InformacionInstitucionalDTO informacionDTO) {
-        // Verificar si el usuario es un encargado
         if (!JwtContext.hasRole("ENCARGADO")) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body("Solo los encargados pueden gestionar la información institucional");
@@ -60,11 +59,9 @@ public class InformacionInstitucionalController {
             return ResponseEntity.badRequest().body("La iglesia especificada no existe");
         }
         
-        // Convertir DTO a entidad
         InformacionInstitucional informacion = convertirAEntidad(informacionDTO);
         informacion.setIglesia(iglesiaOpt.get());
         
-        // Guardar o actualizar
         InformacionInstitucional resultado = informacionInstitucionalService.guardarOActualizarInformacion(informacion);
         
         return ResponseEntity.ok(convertirADTO(resultado));
@@ -81,7 +78,6 @@ public class InformacionInstitucionalController {
         
         InformacionInstitucional informacion = informacionExistente.get();
         
-        // Verificar si el usuario es un encargado y tiene acceso a esta iglesia
         Long iglesiaIdDelToken = JwtContext.getCurrentIglesiaId();
         
         if (JwtContext.hasRole("ENCARGADO") && 
@@ -90,7 +86,6 @@ public class InformacionInstitucionalController {
                     .body("No tienes permiso para modificar información de esta iglesia");
         }
         
-        // Actualizar campos
         informacion.setDescripcion(informacionDTO.getDescripcion());
         informacion.setHistoria(informacionDTO.getHistoria());
         informacion.setMision(informacionDTO.getMision());
@@ -105,7 +100,6 @@ public class InformacionInstitucionalController {
         InformacionInstitucional informacion = informacionInstitucionalService.obtenerInformacionPorIglesia(iglesiaId);
         
         if (informacion == null) {
-            // Verificar si la iglesia existe
             boolean iglesiaExiste = iglesiaRepository.existsById(iglesiaId);
             
             if (!iglesiaExiste) {
@@ -113,7 +107,6 @@ public class InformacionInstitucionalController {
                         .body("No se encontró ninguna iglesia con el ID proporcionado.");
             }
             
-            // La iglesia existe, pero no tiene información configurada aún
             Map<String, Object> respuesta = new HashMap<>();
             respuesta.put("mensaje", "Esta iglesia aún no tiene información institucional configurada.");
             respuesta.put("iglesiaId", iglesiaId);
@@ -141,7 +134,6 @@ public class InformacionInstitucionalController {
         
         InformacionInstitucional informacion = informacionOpt.get();
         
-        // Verificar si el usuario es un encargado y tiene acceso a esta iglesia
         Long iglesiaIdDelToken = JwtContext.getCurrentIglesiaId();
         
         if (JwtContext.hasRole("ENCARGADO") && 
@@ -154,7 +146,6 @@ public class InformacionInstitucionalController {
         return ResponseEntity.noContent().build();
     }
     
-    // Método auxiliar para convertir entidades a DTOs
     private InformacionInstitucionalDTO convertirADTO(InformacionInstitucional informacion) {
         InformacionInstitucionalDTO dto = new InformacionInstitucionalDTO();
         dto.setId(informacion.getId());
@@ -166,7 +157,6 @@ public class InformacionInstitucionalController {
         return dto;
     }
 
-    // Método auxiliar para convertir DTOs a entidades
     private InformacionInstitucional convertirAEntidad(InformacionInstitucionalDTO dto) {
         InformacionInstitucional informacion = new InformacionInstitucional();
         informacion.setDescripcion(dto.getDescripcion());

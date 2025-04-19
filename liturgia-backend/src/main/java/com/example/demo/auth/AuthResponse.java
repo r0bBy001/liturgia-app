@@ -2,7 +2,7 @@ package com.example.demo.auth;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(JsonInclude.Include.NON_NULL) // Solo incluye propiedades no nulas en la respuesta JSON
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthResponse {
     private String token;
     private String error;
@@ -11,7 +11,6 @@ public class AuthResponse {
         this.token = token;
     }
 
-    // Getter y setters
     public String getToken() {
         return token;
     }

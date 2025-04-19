@@ -23,7 +23,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
     
-    // Lista de rutas públicas que no requieren autenticación
     private final List<String> publicPaths = Arrays.asList(
             "/api/auth", 
             "/swagger-ui",
@@ -40,14 +39,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
         String path = request.getServletPath();
         
-        // Verificar si es una ruta pública
         for (String publicPath : publicPaths) {
             if (path.startsWith(publicPath)) {
                 return true;
             }
         }
         
-        // Verificar si es una solicitud GET a un endpoint público
         if (request.getMethod().equals("GET")) {
             return path.startsWith("/api/iglesias") || 
                    path.startsWith("/api/informacion-institucional") ||
@@ -67,7 +64,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
             
-        // Si shouldNotFilter devuelve true, este método no se ejecutará para las rutas públicas
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
@@ -78,7 +74,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtUtil.extractUsername(jwt);
             } catch (Exception e) {
-                // Si hay un error al extraer el username, simplemente continúa sin autenticar
             }
         }
 
@@ -91,7 +86,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 
                 var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
-                // Crear un Map con los detalles adicionales del usuario
                 Map<String, Object> details = new HashMap<>();
                 if (iglesiaId != null) {
                     details.put("iglesiaId", iglesiaId);
@@ -101,7 +95,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         userDetails, null, authorities
                 );
                 
-                // Establecer los detalles en el token de autenticación
                 authenticationToken.setDetails(details);
                 
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

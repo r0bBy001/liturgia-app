@@ -9,9 +9,8 @@ public class NoticiaDTO {
     private String contenido;
     private LocalDate fechaPublicacion;
     private String imagenPortada;
-    private Long iglesiaId; // ID de la iglesia asociada (opcional)
+    private Long iglesiaId;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

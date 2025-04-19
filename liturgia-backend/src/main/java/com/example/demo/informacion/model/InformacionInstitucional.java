@@ -26,7 +26,6 @@ public class InformacionInstitucional {
     @JoinColumn(name = "iglesia_id", nullable = false, unique = true)
     private Iglesia iglesia;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

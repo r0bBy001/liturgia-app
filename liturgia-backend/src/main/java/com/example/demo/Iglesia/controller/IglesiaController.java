@@ -20,13 +20,11 @@ public class IglesiaController {
         this.iglesiaService = iglesiaService;
     }
 
-    // Listar todas las iglesias
     @GetMapping
     public List<Iglesia> listar() {
         return iglesiaService.listarIglesias();
     }
 
-    // Guardar una nueva iglesia
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Iglesia guardar(
             @RequestParam("nombre") String nombre,
@@ -37,7 +35,6 @@ public class IglesiaController {
             @RequestPart(name = "imagen", required = false) MultipartFile imagen,
             @RequestPart(name = "portada", required = false) MultipartFile portada) throws IOException {
 
-        // Crear el DTO manualmente con los parámetros recibidos
         IglesiaDTO dto = new IglesiaDTO();
         dto.setNombre(nombre);
         dto.setDireccion(direccion);
@@ -48,13 +45,11 @@ public class IglesiaController {
         return iglesiaService.guardarIglesia(dto, imagen, portada);
     }
 
-    // Obtener una iglesia por ID
     @GetMapping("/{id}")
     public Iglesia obtenerPorId(@PathVariable Long id) {
         return iglesiaService.obtenerIglesiaPorID(id);
     }
 
-    // Actualizar una iglesia existente
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Iglesia actualizar(
             @PathVariable Long id,
@@ -66,7 +61,6 @@ public class IglesiaController {
             @RequestPart(name = "imagen", required = false) MultipartFile nuevaImagen,
             @RequestPart(name = "portada", required = false) MultipartFile nuevaPortada) throws IOException {
 
-        // Crear el DTO manualmente con los parámetros recibidos
         IglesiaDTO dto = new IglesiaDTO();
         dto.setNombre(nombre);
         dto.setDireccion(direccion);
@@ -77,7 +71,6 @@ public class IglesiaController {
         return iglesiaService.actualizarIglesia(id, dto, nuevaImagen, nuevaPortada);
     }
 
-    // Eliminar una iglesia por ID
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         iglesiaService.eliminarIglesia(id);

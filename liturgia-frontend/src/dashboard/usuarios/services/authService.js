@@ -14,5 +14,5 @@ export const login = async (credentials) => {
     throw new Error(errorData.message || "Error al iniciar sesión");
   }
 
-  return response.json(); // Devuelve el token
+  return response.json();
 };
