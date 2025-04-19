@@ -2,7 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import IglesiaDetalle from "./pages/IglesiaDetalle.jsx";
+import ContactoIglesia from "./pages/ContactoIglesia.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
+import Mapa from "./pages/Mapa.jsx";
 import DashboardLayout from "./dashboard/layouts/DashboardLayout/DashboardLayout";
 import Inicio from "./dashboard/inicio/pages/Inicio";
 import Usuarios from "./dashboard/usuarios/pages/Usuarios";
@@ -18,7 +20,10 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/iglesias/:id" element={<IglesiaDetalle />} />
+      <Route path="/iglesias/:id/contacto" element={<ContactoIglesia />} /> 
       <Route path="/admin" element={<AdminLogin />} />
+      <Route path="/mapa" element={<Mapa />} />
+
       <Route
         path="/dashboard"
         element={
@@ -40,5 +45,4 @@ const App = () => {
   );
 };
 
-export default App;
-
+export default App;

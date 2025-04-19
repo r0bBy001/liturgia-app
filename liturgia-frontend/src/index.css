@@ -1,6 +1,8 @@
 @tailwind base;
+@import "leaflet/dist/leaflet.css";
 @tailwind components;
 @tailwind utilities;
+
 
 /* Estilo global del proyecto con fondo tipo plantas naturales */
 body {
