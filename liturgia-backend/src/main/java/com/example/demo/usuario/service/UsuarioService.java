@@ -9,7 +9,7 @@ import com.example.demo.usuario.model.Usuario;
 import com.example.demo.usuario.repository.UsuarioRepository;
 import com.example.demo.Iglesia.model.Iglesia;
 import com.example.demo.Iglesia.repository.IglesiaRepository;
-import com.example.demo.model.Rol; // Asegúrate de importar el enum Rol
+import com.example.demo.model.Rol;
 import com.example.demo.exception.UsuarioNotFoundException;
 import com.example.demo.exception.IglesiaNotFoundException;
 
@@ -33,7 +33,7 @@ public class UsuarioService {
                 .map(usuario -> new UsuarioDTO(
                         usuario.getId(),
                         usuario.getUsername(),
-                        null, // No devolver el password por seguridad
+                        null,
                         usuario.getRol(),
                         usuario.getIglesia() != null ? usuario.getIglesia().getId() : null
                 ))
@@ -46,7 +46,7 @@ public class UsuarioService {
         return new UsuarioDTO(
                 usuario.getId(),
                 usuario.getUsername(),
-                null, // No devolver el password por seguridad
+                null,
                 usuario.getRol(),
                 usuario.getIglesia() != null ? usuario.getIglesia().getId() : null
         );
@@ -55,7 +55,6 @@ public class UsuarioService {
     public UsuarioDTO create(UsuarioDTO usuarioDTO) {
         Iglesia iglesia = null;
 
-        // Verificar si el rol es "ENCARGADO" y si se proporcionó una iglesia
         if (usuarioDTO.getRol() == Rol.ENCARGADO) {
             if (usuarioDTO.getIglesiaId() == null) {
                 throw new IllegalArgumentException("Un encargado debe tener una iglesia asignada");
@@ -64,17 +63,15 @@ public class UsuarioService {
                     .orElseThrow(() -> new IglesiaNotFoundException("Iglesia no encontrada"));
         }
 
-        // Validar que el password no sea null o vacío
         if (usuarioDTO.getPassword() == null || usuarioDTO.getPassword().isEmpty()) {
             throw new IllegalArgumentException("La contraseña no puede ser nula o vacía");
         }
 
-        // Encriptar la contraseña antes de guardar
         String encodedPassword = passwordEncoder.encode(usuarioDTO.getPassword());
 
         Usuario usuario = new Usuario(
                 usuarioDTO.getUsername(),
-                encodedPassword, // Guardar la contraseña encriptada
+                encodedPassword,
                 usuarioDTO.getRol(),
                 iglesia
         );
@@ -84,7 +81,7 @@ public class UsuarioService {
         return new UsuarioDTO(
                 savedUsuario.getId(),
                 savedUsuario.getUsername(),
-                null, // No devolver el password por seguridad
+                null,
                 savedUsuario.getRol(),
                 savedUsuario.getIglesia() != null ? savedUsuario.getIglesia().getId() : null
         );
@@ -97,7 +94,6 @@ public class UsuarioService {
         existingUsuario.setUsername(usuarioDTO.getUsername());
         existingUsuario.setRol(usuarioDTO.getRol());
 
-        // Manejar la relación con la iglesia si el rol es "ENCARGADO"
         if (usuarioDTO.getRol() == Rol.ENCARGADO) {
             if (usuarioDTO.getIglesiaId() == null) {
                 throw new IllegalArgumentException("Un encargado debe tener una iglesia asignada");
@@ -106,10 +102,9 @@ public class UsuarioService {
                     .orElseThrow(() -> new RuntimeException("Iglesia no encontrada"));
             existingUsuario.setIglesia(iglesia);
         } else {
-            existingUsuario.setIglesia(null); // Si no es encargado, eliminar la relación con la iglesia
+            existingUsuario.setIglesia(null);
         }
 
-        // Encriptar la contraseña si se proporciona
         if (usuarioDTO.getPassword() != null && !usuarioDTO.getPassword().isEmpty()) {
             String encodedPassword = passwordEncoder.encode(usuarioDTO.getPassword());
             existingUsuario.setPassword(encodedPassword);
@@ -120,7 +115,7 @@ public class UsuarioService {
         return new UsuarioDTO(
                 updatedUsuario.getId(),
                 updatedUsuario.getUsername(),
-                null, // No devolver el password por seguridad
+                null,
                 updatedUsuario.getRol(),
                 updatedUsuario.getIglesia() != null ? updatedUsuario.getIglesia().getId() : null
         );

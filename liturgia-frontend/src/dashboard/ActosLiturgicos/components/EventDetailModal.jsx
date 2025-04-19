@@ -19,7 +19,6 @@ const EventDetailModal = ({ event, onClose, onEdit, onDelete }) => {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden"
       >
-        {/* Header con gradiente */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold truncate">
@@ -39,9 +38,7 @@ const EventDetailModal = ({ event, onClose, onEdit, onDelete }) => {
           </p>
         </div>
 
-        {/* Cuerpo del modal con información */}
         <div className="p-6 space-y-6">
-          {/* Tarjeta con fecha y hora */}
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm">
             <div className="flex items-center space-x-3">
               <div className="bg-indigo-100 p-2 rounded-full">
@@ -58,7 +55,6 @@ const EventDetailModal = ({ event, onClose, onEdit, onDelete }) => {
             </div>
           </div>
           
-          {/* Información adicional */}
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
               <div className="bg-indigo-100 p-2 rounded-full flex-shrink-0 mt-1">
@@ -92,7 +88,6 @@ const EventDetailModal = ({ event, onClose, onEdit, onDelete }) => {
           </div>
         </div>
 
-        {/* Footer con acciones */}
         <div className="border-t border-gray-200 p-4 bg-gray-50 flex justify-end space-x-2">
           <button
             onClick={onClose}

@@ -9,7 +9,6 @@ public class PadreDTO {
     private String foto;
     private Long iglesiaId;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

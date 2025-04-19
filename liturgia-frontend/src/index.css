@@ -1,11 +1,15 @@
-@tailwind base;
 @import "leaflet/dist/leaflet.css";
+/* postcss-ignore-next-line */
+@tailwind base;
+/* postcss-ignore-next-line */
 @tailwind components;
+/* postcss-ignore-next-line */
 @tailwind utilities;
 
 
 /* Estilo global del proyecto con fondo tipo plantas naturales */
 body {
+  /* postcss-ignore-next-line */
   @apply text-white font-sans antialiased;
 
   /* Fondo base: verde profundo */
@@ -24,10 +28,12 @@ body {
 
 /* Opcional: para que los headers y botones combinen */
 h1, h2, h3, h4, h5, h6 {
+  /* postcss-ignore-next-line */
   @apply font-bold text-[#E3E5D8];
 }
 
 button {
+  /* postcss-ignore-next-line */
   @apply transition duration-200 ease-in-out;
 }
 

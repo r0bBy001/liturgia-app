@@ -23,7 +23,6 @@ public class Padre {
     @JoinColumn(name = "iglesia_id", nullable = false)
     private Iglesia iglesia;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

@@ -41,7 +41,6 @@ public class BannerController {
             @RequestParam("tipo") String tipo,
             @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
         try {
-            // Crear el DTO manualmente con los parámetros recibidos
             BannerDTO dto = new BannerDTO();
             dto.setActivo(activo);
             dto.setTipo(TipoBanner.valueOf(tipo.toUpperCase())); // Convertir el tipo a enum
@@ -62,7 +61,6 @@ public class BannerController {
             @RequestParam("tipo") String tipo,
             @RequestPart(value = "nuevaImagen", required = false) MultipartFile nuevaImagen) {
         try {
-            // Crear el DTO manualmente con los parámetros recibidos
             BannerDTO dto = new BannerDTO();
             dto.setActivo(activo);
             dto.setTipo(TipoBanner.valueOf(tipo.toUpperCase())); // Convertir el tipo a enum

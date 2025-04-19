@@ -76,7 +76,6 @@ const EventFormModal = ({ event, isEditMode, onClose, onEventAdded, churchId }) 
       return;
     }
 
-    // Preparar datos para envío según el modelo del backend
     const eventData = {
       startDateTime: startDateTime.toISOString(),
       liturgicalActTypeId: selectedTypeId,

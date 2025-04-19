@@ -31,16 +31,13 @@ public class ImageService {
 
         logger.info("Ruta de la carpeta de destino: {}", uploadPath.toString());
 
-        // Generar un nombre único para el archivo
         String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
         Path filePath = uploadPath.resolve(uniqueFileName);
 
-        // Guardar el archivo original
         Files.copy(file.getInputStream(), filePath);
 
         logger.info("Archivo guardado exitosamente: {}", filePath.toString());
 
-        // Devolver solo el nombre del archivo
         return uniqueFileName;
     }
 }

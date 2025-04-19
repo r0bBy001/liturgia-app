@@ -9,7 +9,6 @@ public class InformacionInstitucionalDTO {
     private String vision;
     private Long iglesiaId;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

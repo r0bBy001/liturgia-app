@@ -7,7 +7,6 @@ public class IglesiaDTO {
     private String telefono;
     private String correo;
 
-    // Getters y Setters
     public String getNombre() {
         return nombre;
     }

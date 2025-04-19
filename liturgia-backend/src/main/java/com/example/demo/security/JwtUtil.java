@@ -37,7 +37,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 15)) // 15 minutos
-                .signWith(SECRET_KEY) // Usar la clave secreta
+                .signWith(SECRET_KEY)
                 .compact();
     }
 
@@ -73,7 +73,7 @@ public class JwtUtil {
                     .getBody()
                     .get("iglesiaId", Long.class);
         } catch (Exception e) {
-            return null; // Retorna null si no existe el claim o hay un error
+            return null;
         }
     }
 

@@ -43,7 +43,6 @@ public class NoticiaController {
             @RequestParam(value = "iglesiaId", required = false) Long iglesiaId,
             @RequestPart(value = "imagenPortada", required = false) MultipartFile imagenPortada) {
         try {
-            // Crear el DTO manualmente con los parámetros recibidos
             NoticiaDTO noticiaDTO = new NoticiaDTO();
             noticiaDTO.setTitulo(titulo);
             noticiaDTO.setContenido(contenido);
@@ -66,7 +65,6 @@ public class NoticiaController {
             @RequestParam(value = "iglesiaId", required = false) Long iglesiaId,
             @RequestPart(value = "nuevaImagenPortada", required = false) MultipartFile nuevaImagenPortada) {
         try {
-            // Crear el DTO manualmente con los parámetros recibidos
             NoticiaDTO noticiaDTO = new NoticiaDTO();
             noticiaDTO.setTitulo(titulo);
             noticiaDTO.setContenido(contenido);
@@ -74,7 +72,6 @@ public class NoticiaController {
             noticiaDTO.setFechaPublicacion(java.time.LocalDate.parse(fechaPublicacion, formatter));
             noticiaDTO.setIglesiaId(iglesiaId);
 
-            // Llamar al servicio para actualizar la noticia
             Noticia noticia = noticiaService.actualizarNoticia(id, noticiaDTO, nuevaImagenPortada);
             if (noticia == null) {
                 return ResponseEntity.notFound().build();
