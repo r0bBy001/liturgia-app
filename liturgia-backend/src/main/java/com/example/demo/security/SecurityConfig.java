@@ -33,7 +33,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/uploads/**").permitAll()
+                .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/uploads/**", "/api/setup/create-superadmin").permitAll()
                 
                 .requestMatchers(HttpMethod.GET, "/api/iglesias/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/informacion-institucional/**").permitAll()
