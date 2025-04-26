@@ -5,25 +5,28 @@ import IglesiaDetalle from "./pages/IglesiaDetalle.jsx";
 import ContactoIglesia from "./pages/ContactoIglesia.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import Mapa from "./pages/Mapa.jsx";
-import DashboardLayout from "./dashboard/layouts/DashboardLayout/DashboardLayout";
-import Inicio from "./dashboard/inicio/pages/Inicio";
-import Usuarios from "./dashboard/usuarios/pages/Usuarios";
-import ListChurches from "./dashboard/iglesias/pages/ListChurches";
-import Padres from "./dashboard/padres/pages/Padres";
-import LiturgicalActs from "./dashboard/tipoActos/pages/LiturgicalActs";
-import InformacionInstitucional from "./dashboard/informacionInstitucional/pages/InformacionInstitucional";
-import LiturgicalEventCalendar from "./dashboard/ActosLiturgicos/pages/LiturgicalEventCalendar";
-import ProtectedRoute from "./components/ProtectedRoute";
+import DashboardLayout from "./dashboard/layouts/DashboardLayout/DashboardLayout.jsx";
+import Inicio from "./dashboard/inicio/pages/Inicio.jsx";
+import Usuarios from "./dashboard/usuarios/pages/Usuarios.jsx";
+import ListChurches from "./dashboard/iglesias/pages/ListChurches.jsx";
+import Padres from "./dashboard/padres/pages/Padres.jsx";
+import LiturgicalActs from "./dashboard/tipoActos/pages/LiturgicalActs.jsx";
+import InformacionInstitucional from "./dashboard/informacionInstitucional/pages/InformacionInstitucional.jsx";
+import LiturgicalEventCalendar from "./dashboard/ActosLiturgicos/pages/LiturgicalEventCalendar.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const App = () => {
   return (
     <Routes>
+      {/* Rutas públicas */}
       <Route path="/" element={<Home />} />
       <Route path="/iglesias/:id" element={<IglesiaDetalle />} />
-      <Route path="/iglesias/:id/contacto" element={<ContactoIglesia />} /> 
+      <Route path="/iglesias/:id/contacto" element={<ContactoIglesia />} />
+      <Route path="/contactos" element={<ContactoIglesia />} /> {/* ✅ Nueva ruta corregida */}
       <Route path="/admin" element={<AdminLogin />} />
       <Route path="/mapa" element={<Mapa />} />
 
+      {/* Rutas del Dashboard (protegidas) */}
       <Route
         path="/dashboard"
         element={
@@ -40,9 +43,11 @@ const App = () => {
         <Route path="actos-liturgicos" element={<LiturgicalEventCalendar />} />
         <Route path="informacion-institucional" element={<InformacionInstitucional />} />
       </Route>
+
+      {/* Ruta para acceso denegado */}
       <Route path="/unauthorized" element={<div>Acceso Denegado</div>} />
     </Routes>
   );
 };
 
-export default App;
+export default App;

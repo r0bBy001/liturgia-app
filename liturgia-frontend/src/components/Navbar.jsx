@@ -7,7 +7,6 @@ function Navbar() {
   const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState([]);
   const [iglesias, setIglesias] = useState([]);
-  const [mostrarContactos, setMostrarContactos] = useState(false);
 
   useEffect(() => {
     fetch(apiRoutes.churches.getAll)
@@ -40,26 +39,8 @@ function Navbar() {
           <Link to="/" className="hover:text-[#F5CBA7]">Inicio</Link>
           <Link to="/mapa" className="hover:text-[#F5CBA7]">Mapa</Link>
           <Link to="/foros" className="hover:text-[#F5CBA7]">Foros</Link>
-          <div
-            className="relative group"
-            onMouseEnter={() => setMostrarContactos(true)}
-            onMouseLeave={() => setMostrarContactos(false)}
-          >
-            <span className="hover:text-[#F5CBA7] cursor-pointer">Contactos</span>
-            {mostrarContactos && (
-              <div className="absolute top-full mt-2 bg-white border shadow-lg rounded-md w-48 z-50">
-                {iglesias.map((iglesia) => (
-                  <Link
-                    key={iglesia.id}
-                    to={`/iglesias/${iglesia.id}/contacto`}
-                    className="block px-4 py-2 hover:bg-[#F5CBA7] hover:text-white transition"
-                  >
-                    {iglesia.nombre}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          <Link to="/contactos" className="hover:text-[#F5CBA7]">Contactos</Link>
+ {/* 👈 Solo agregamos este enlace */}
         </nav>
 
         {/* Buscador */}

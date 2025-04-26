@@ -2,17 +2,23 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiRoutes from "../config/apiConfig";
 import Navbar from "../components/Navbar";
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaUserTie } from "react-icons/fa";
 
 function IglesiaDetalle() {
   const { id } = useParams();
   const [iglesia, setIglesia] = useState(null);
+  const [padre, setPadre] = useState(null);
 
   useEffect(() => {
     fetch(apiRoutes.churches.getById(id))
       .then((res) => res.json())
       .then((data) => setIglesia(data))
       .catch((err) => console.error("Error al cargar iglesia:", err));
+
+    fetch(`${apiRoutes.base}/padres/iglesia/${id}`)
+      .then((res) => res.json())
+      .then((data) => setPadre(data))
+      .catch((err) => console.error("Error al cargar padre:", err));
   }, [id]);
 
   if (!iglesia) {
@@ -23,7 +29,7 @@ function IglesiaDetalle() {
     <div className="bg-[#EAF2F8] min-h-screen text-[#2C3E50]">
       <Navbar />
 
-      {/* Portada con título */}
+      {/* Portada */}
       <div className="relative w-full h-[400px]">
         <img
           src={
@@ -38,8 +44,6 @@ function IglesiaDetalle() {
           <h1 className="text-4xl font-bold">{iglesia.nombre}</h1>
           <p className="text-lg">{iglesia.ciudad}</p>
         </div>
-
-        {/* Imagen circular con efecto */}
         <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 z-10">
           <img
             src={
@@ -55,7 +59,7 @@ function IglesiaDetalle() {
 
       <main className="max-w-6xl mx-auto px-6 pt-28 pb-12">
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Descripción y horarios */}
+          {/* COLUMNA IZQUIERDA */}
           <div className="md:col-span-2 space-y-6">
             <div className="bg-white rounded-xl shadow p-6">
               <h2 className="text-xl font-bold mb-2 text-[#D4AC0D]">Sobre la iglesia</h2>
@@ -74,6 +78,29 @@ function IglesiaDetalle() {
               </div>
             </div>
 
+            {/* Padre asignado */}
+            {padre && (
+              <div className="bg-white rounded-xl shadow p-6 flex items-center gap-6">
+                <img
+                  src={
+                    padre.imagen
+                      ? `${apiRoutes.images.base}/padre/${padre.imagen}`
+                      : "https://via.placeholder.com/120"
+                  }
+                  alt="Padre"
+                  className="w-24 h-24 rounded-full border-2 border-gray-300 object-cover"
+                />
+                <div>
+                  <h2 className="text-lg font-bold text-[#D4AC0D] mb-1">Padre asignado</h2>
+                  <p className="text-sm text-gray-700 flex items-center gap-2">
+                    <FaUserTie className="text-[#2C3E50]" />
+                    {padre.nombre} {padre.apellido}
+                  </p>
+                  <p className="text-sm text-gray-700 mt-1">Teléfono: {padre.telefono}</p>
+                </div>
+              </div>
+            )}
+
             {/* Galería */}
             <div className="bg-white rounded-xl shadow p-6">
               <h2 className="text-lg font-bold text-[#D4AC0D] mb-4">Galería</h2>
@@ -90,14 +117,14 @@ function IglesiaDetalle() {
             </div>
           </div>
 
-          {/* Contacto */}
+          {/* Contacto iglesia */}
           <div className="bg-white rounded-xl shadow p-6">
             <h2 className="text-lg font-bold text-[#D4AC0D] mb-4">Contacto</h2>
             <p className="flex items-center gap-2 text-sm mb-2">
               <FaMapMarkerAlt /> {iglesia.ciudad || "Cusco"}
             </p>
             <p className="flex items-center gap-2 text-sm mb-2">
-              <FaPhoneAlt /> (084) 123456
+              <FaPhoneAlt /> {iglesia.telefono || "(084) 123456"}
             </p>
             <p className="flex items-center gap-2 text-sm mb-4">
               <FaEnvelope /> contacto@iglesiasdelcusco.pe
@@ -108,8 +135,8 @@ function IglesiaDetalle() {
           </div>
         </div>
 
-        {/* Footer inspiracional */}
-        <div className="mt-16 text-center text-gray-600">
+        {/* Cita inspiracional */}
+        <div className="mt-10 text-center text-gray-600">
           <p className="text-md italic">
             "Cada iglesia es un pedazo de historia viva, un refugio para el alma y una joya de fe."
           </p>
